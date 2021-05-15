@@ -1,21 +1,3 @@
 .grid {
   border-collapse: collapse;
 }
-.cell {
-  height: 75px;
-  width: 75px;
-  border: 2px solid black;
-  text-align: center;
-}
-.cell:first-child {
-  border-left:4px solid;
-}
-.cell:nth-child(3n) {
-  border-right:4px solid ;
-}
-.row:first-child {
-  border-top:4px solid;
-}
-.row:nth-child(3n) td {
-  border-bottom:4px solid ;
-}

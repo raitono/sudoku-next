@@ -1,0 +1,6 @@
+.row:first-child {
+  border-top:4px solid black;
+}
+.row:nth-child(3n) td {
+  border-bottom:4px solid black;
+}
