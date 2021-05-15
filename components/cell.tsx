@@ -4,7 +4,7 @@ import { ShowSolutionContext } from './context';
 import { CellProps } from './props';
 
 export default function Cell(props: CellProps) {
-  let showSolution = useContext(ShowSolutionContext);
+  const showSolution = useContext(ShowSolutionContext);
 
   let cellStyle: string = null;
 
@@ -18,7 +18,7 @@ export default function Cell(props: CellProps) {
 
   function onClick() {
     if (props.isKnown) return;
-    let num = Number.parseInt(prompt());
+    const num = Number.parseInt(prompt());
     if (Number.isNaN(num)) return;
 
     props.setEntry(num, props.rowIndex, props.cellIndex);

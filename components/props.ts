@@ -1,8 +1,10 @@
 export interface GridProps {
   showSolution: boolean;
   isSolved: boolean[][];
-  solution: number[][];
-  puzzle: number[][];
+  grid: {
+    solution: number[][];
+    puzzle: number[][];
+  };
   entries: number[][];
   setEntry: (entry: number, rowIndex: number, cellIndex: number) => void;
 }

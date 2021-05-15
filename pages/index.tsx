@@ -1,17 +1,27 @@
 import Head from 'next/head'
-import { useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import Grid from '../components/grid'
+import { GridProps } from '../components/props';
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const [showSolution, setShowSolution] = useState(false);
+  const [showSolution, toggleSolution] = useReducer(value => !value, false);
   const [isSolved] = useState([[false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false]]);
-  const solution = [[4,2,1,8,9,5,3,6,7],[6,9,8,3,7,2,1,5,4],[3,5,7,4,6,1,8,9,2],[1,3,2,7,8,9,6,4,5],[7,8,9,6,5,4,2,1,3],[5,4,6,2,1,3,7,8,9],[8,1,3,5,4,7,9,2,6],[2,6,5,9,3,8,4,7,1],[9,7,4,1,2,6,5,3,8]];
-  const puzzle = [[null,2,null,8,null,5,null,6,7],[null,null,8,3,7,null,1,5,null],[null,null,null,null,6,1,null,null,2],[1,3,2,null,null,null,null,null,null],[7,null,null,null,null,null,null,null,3],[null,null,null,null,null,null,7,8,9],[8,null,null,5,4,null,null,null,null],[null,6,5,null,3,8,4,null,null],[9,7,null,1,null,6,null,3,null]];
-  let [entries, setEntries] = useState<number[][]>([[null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null]]);
+  const [entries, setEntries] = useState<number[][]>([[null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null, null]]);
+  const [grid, setGrid] = useState<{puzzle: number[][],solution: number[][]}>({puzzle: [...entries], solution: [...entries]});
 
-  function toggleSolution() {
-    setShowSolution(!showSolution);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/puzzle`)
+    .then(response => response.json())
+    .then(setGrid);
+  }, []);
+
+  let gridProps: GridProps = {
+    grid,
+    entries,
+    setEntry,
+    showSolution,
+    isSolved
   }
 
   function checkSolution() {
@@ -38,7 +48,7 @@ export default function Home() {
         </h1>
 
         <div className={styles.grid}>
-          <Grid solution={solution} puzzle={puzzle} entries={entries} setEntry={setEntry} showSolution={showSolution} isSolved={isSolved}></Grid>
+          <Grid {...gridProps}></Grid>
         </div>
         <div style={{marginTop: 20}}>
           <button onClick={toggleSolution}>Show solution</button>
