@@ -17,6 +17,9 @@
 .puzzle {
   color: black;
 }
-.solution {
+.entry {
   color: cornflowerblue;
+}
+.solution {
+  color: darkseagreen;
 }

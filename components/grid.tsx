@@ -15,7 +15,9 @@ export default function Grid(props: GridProps) {
               let rowProps: RowProps = {
                 rowIndex: i,
                 solutionRow: props.solution[i],
-                puzzleRow: props.puzzle[i]
+                puzzleRow: props.puzzle[i],
+                entriesRow: props.entries[i],
+                setEntry: props.setEntry
               }
               return <Row key={i} {...rowProps}></Row>
             })
